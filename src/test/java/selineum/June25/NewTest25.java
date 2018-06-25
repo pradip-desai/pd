@@ -1,11 +1,13 @@
 package selineum.June25;
 
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
@@ -25,8 +27,32 @@ public class NewTest25 {
 	//driver.findElement(By.name("password")).sendKeys("invalidPW");
 	  LoginPageObject.login_button.click();
 	//driver.findElement(By.name("login")).click();
+	  Assert.assertEquals("Find a Flight: Mercury Tours:", driver.getTitle());
 	  
   }
+  
+  @Test(priority=2)
+  public void findFlight()
+  {
+	  Select pass=new Select(driver.findElement(By.name("passCount"))); 
+	  pass.selectByValue("2");
+	  
+	  
+	  Select departing =new Select(driver.findElement(By.name("fromPort")));
+	  departing.selectByValue("London");
+	  
+	  Select  toPort=new Select(driver.findElement(By.name("toPort")));
+	  toPort.selectByValue("New York");
+	  
+	  driver.findElement(By.xpath("/html/body/div/table/tbody/tr/td[2]/table/tbody/tr[4]/td/table/tbody/tr/td[2]/table/tbody/tr[5]/td/form/table/tbody/tr[9]/td[2]/font/font")).click();
+	  
+	  Select airline=new Select(driver.findElement(By.name("airline")));
+	  airline.selectByValue("Unified Airlines");
+	
+	  driver.findElement(By.name("findFlights")).click();
+	  
+  }
+  
 	  
 	   @DataProvider(name="loginData")
 	   public String[][] login_data()throws Exception 
